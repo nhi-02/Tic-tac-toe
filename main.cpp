@@ -2,6 +2,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include "caro.cpp"
+#include <SDL2/SDL_timer.h>
 using namespace std;
 const int WIDTH = 805, HEIGHT = 805;
 
@@ -27,7 +28,7 @@ int main(int argc, char *argv[])
 
         return EXIT_FAILURE;
     }
-    BoardGame bg(windowSurface);
+    BoardGame bg(windowSurface, window);
     Cell c;
     SDL_Event event;
     imageSurface = IMG_Load("board.png");
@@ -42,7 +43,7 @@ int main(int argc, char *argv[])
     {
         std::cout << "SDL could not load image! SDL Error: " << SDL_GetError() << std::endl;
     }
-
+    Uint32 prevTime = SDL_GetTicks();
     while (true)
     {
         if (SDL_PollEvent(&event))
@@ -63,6 +64,14 @@ int main(int argc, char *argv[])
                     bg.click(row, col);
                 }
             }
+        }
+        Uint32 nowTime = SDL_GetTicks();
+        Uint32 delta = nowTime - prevTime;
+
+        if (delta >= 1000)
+        {
+            cout << "delta=" << delta << endl;
+            prevTime = nowTime;
         }
         // Update the surface
         SDL_UpdateWindowSurface(window);

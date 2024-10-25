@@ -27,15 +27,17 @@ public:
 class BoardGame
 {
 private:
-    SDL_Surface *win, *board, *imageX, *imageO, *imageToDraw;
+    SDL_Surface *win, *board, *imageX, *imageO, *imageToDraw, *imageN;
+    SDL_Window *window;
     SDL_Rect areaBoard = {0, 0, 800, 800};
     SDL_Rect areaXO = {0, 0, 50, 50};
     Cell cells[16][16];
     char turn;
 
 public:
-    BoardGame(SDL_Surface *mwin);
+    BoardGame(SDL_Surface *mwin, SDL_Window *mwindow);
     // ~BoardGame();
     bool winner(int mrow, int mcol);
     void click(int mrow, int mcol);
+    void click_win(int mrow, int mcol);
 };
