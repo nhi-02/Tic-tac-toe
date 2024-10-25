@@ -141,12 +141,12 @@ bool BoardGame::winner(int mrow, int mcol)
         click_win(mrow, mcol);
         for (int i = mcol - 1; i >= 0; i--)
             if (cells[mrow][i].getState() == s)
-                click_win(i, mcol);
+                click_win(mrow, i);
             else
                 break;
         for (int i = mcol + 1; i <= 15; i++)
             if (cells[mrow][i].getState() == s)
-                click_win(i, mcol);
+                click_win(mrow, i);
             else
                 break;
     }
